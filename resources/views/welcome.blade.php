@@ -25,7 +25,7 @@
     <body class="antialiased bg-gray-100 dark:bg-gray-900">
         <div class="relative m-8 flex-col items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
 
-                <h1 class="m-8 text-red-500 text-3xl font-bold underline">
+                <h1 class="m-8 text-red-500 text-3xl font-bold">
                     Rick & Morty Character Information
                 </h1>
 
@@ -76,11 +76,23 @@
                     </form>
                 </div>
 
-            @isset($results['results'])
-                @foreach($results['results'] as $result)
+
+            @if(isset($results['error']))
+
+                <div class="ml-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    {{ $results['error'] }}
+                </div>
+
+            @else
+
+                <div class="ml-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    {{  $results->withQueryString()->links() }}
+                </div>
+
+                @foreach($results as $result)
                 <div class="ml-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
-                     <img class="t" src="{{ $result['image'] }}">
+                     <img class="rounded" src="{{ $result['image'] }}">
 
                     <h2 class="text-2xl">{{ $result['name'] }}</h2>
                     <p><b>Species: </b>{{ $result['species'] }}</p>
@@ -95,8 +107,7 @@
                     </ul>
                 </div>
                 @endforeach
-            @endisset
-            <hr>
+            @endif
 
 
         </div>
