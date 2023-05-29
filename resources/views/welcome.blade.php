@@ -40,6 +40,8 @@
                     </div>
                 @endif
 
+
+
                 <div class="w-full ml-8 max-w-xs">
                     <form action="/search" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                         @csrf
@@ -54,7 +56,7 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="gender">
                                 Gender
                             </label>
-                            <select id=gender" name="gender" class="">
+                            <select id="gender" name="gender" class="">
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="genderless">Genderless</option>
@@ -66,7 +68,7 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
                                 Status
                             </label>
-                            <select id=status" name="status" class="">
+                            <select id="status" name="status" class="">
                                 <option value="alive">Alive</option>
                                 <option value="deceased">Deceased</option>
                                 <option value="unknown">Unknown</option>
@@ -110,7 +112,6 @@
                     @endforeach
                 @endif
             @endisset
-
         </div>
     </body>
 </html>
