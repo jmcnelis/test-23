@@ -77,38 +77,39 @@
                 </div>
 
 
-            @if(isset($results['error']))
+            @isset($results)
+                @if(isset($results['error']))
 
-                <div class="ml-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                    {{ $results['error'] }}
-                </div>
+                    <div class="ml-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                        {{ $results['error'] }}
+                    </div>
 
-            @else
+                @else
 
-                <div class="ml-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                    {{  $results->withQueryString()->links() }}
-                </div>
+                    <div class="ml-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                        {{  $results->withQueryString()->links() }}
+                    </div>
 
-                @foreach($results as $result)
-                <div class="ml-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    @foreach($results as $result)
+                    <div class="ml-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
-                     <img class="rounded" src="{{ $result['image'] }}">
+                         <img class="rounded" src="{{ $result['image'] }}">
 
-                    <h2 class="text-2xl">{{ $result['name'] }}</h2>
-                    <p><b>Species: </b>{{ $result['species'] }}</p>
-                    <p><b>Gender: </b>{{ $result['gender'] }}</p>
-                    <p><b>Status: </b>{{ $result['status'] }}</p>
-                    <p><b>Origin: </b>{{ $result['origin']['name'] }}</p>
-                    <b>Episodes Appeared In</b>
-                    <ul class="ml-8">
-                        @foreach($result['episode'] as $episode)
-                            <li>{{ $episode }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endforeach
-            @endif
-
+                        <h2 class="text-2xl">{{ $result['name'] }}</h2>
+                        <p><b>Species: </b>{{ $result['species'] }}</p>
+                        <p><b>Gender: </b>{{ $result['gender'] }}</p>
+                        <p><b>Status: </b>{{ $result['status'] }}</p>
+                        <p><b>Origin: </b>{{ $result['origin']['name'] }}</p>
+                        <b>Episodes Appeared In:</b>
+                            <div class="flex flex-col flex-wrap">
+                                @foreach($result['episode'] as $episode)
+                                    <div class="px-6 mb-2 border">ep.{!! str_replace('https://rickandmortyapi.com/api/episode/', ' ', $episode) !!}</div>
+                                @endforeach
+                            </div>
+                    </div>
+                    @endforeach
+                @endif
+            @endisset
 
         </div>
     </body>
