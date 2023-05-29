@@ -16,4 +16,6 @@ use App\Http\Controllers\ResultsController;
 
 Route::get('/', function () { return view('welcome'); });
     
-Route::get('search/', [ResultsController::class, 'webSearch']);
+Route::middleware(['throttle:search'])->group(function () {
+    Route::get('search/', [ResultsController::class, 'webSearch']);
+});
