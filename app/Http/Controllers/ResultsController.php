@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -20,9 +19,9 @@ class ResultsController extends Controller
             'status' => 'required'
         ]);
 
-        $name_filter = '?name='.$request->name;
-        $status_filter = '&status='.$request->status;
-        $gender_filter = '&gender='.$request->gender;
+        $name_filter = '?name='.urlencode($request->name);
+        $status_filter = '&status='.urlencode($request->status);
+        $gender_filter = '&gender='.urlencode($request->gender);
 
         $url  = config('app.rick_morty_api_url').'/character/'.$name_filter.$status_filter.$gender_filter;
         $data   = Http ::get($url);
@@ -34,9 +33,8 @@ class ResultsController extends Controller
         } else {
             $results_col = collect($results['results']);
             $paginated_results = $this->paginate($results_col, 2, null, ['path' => 'search/']);
+            return view('welcome')->with('results', $paginated_results);
         }
-
-        return view('welcome')->with('results', $paginated_results);
 
     }
 
